@@ -37,7 +37,7 @@ typedef Bloc *Liste ;
 /*                                               */
 /*************************************************/
 
-/* initialise une Liste à vide */
+/* initialise une Liste Ã  vide */
 void initVide(Liste *L);
 
 /* renvoie 1 si la Liste en parametre est vide, 0 sinon */
@@ -227,7 +227,7 @@ void VideListe(Liste *L)
 
 /*************************************************/
 /*                                               */
-/*       Fonction à implémenter                  */
+/*       Fonction Ã  implÃ©menter                  */
 /*                                               */
 /*************************************************/
 bool ZeroEnDeuxiemePosition(Liste l){
@@ -244,10 +244,10 @@ bool QueDesZeros(Liste l){
     des que suite de l sera vide ca va faire true ou cette
     ligne est indispensable*/
 }
-/**récursive sans sous-fonctionnalité et non-terminale **/
-/**itérative **/
+/**rÃ©cursive sans sous-fonctionnalitÃ© et non-terminale **/
+/**itÃ©rative **/
 /**avec sous fonction recursive terminale avec arg supplementaire in **/
-/**avec sous procédure récursive terminale avec argument supplémentaire inout **/
+/**avec sous procÃ©dure rÃ©cursive terminale avec argument supplÃ©mentaire inout **/
 int cpt = 0;//variable global attention stp -_-''
 int Compte0InitiauxV1(Liste l){
     if (estVide(l)) return cpt;
@@ -317,9 +317,9 @@ Liste separerLesListes(Liste l){
     }
 }*/
 
-/**tentative2 avec renverser la liste itérative*/
+/**tentative2 avec renverser la liste itÃ©rative*/
 
-/**tentative 3 sans renverser la liste itérative*/
+/**tentative 3 sans renverser la liste itÃ©rative*/
 
 
 
