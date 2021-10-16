@@ -4,17 +4,8 @@
 
 ### e = ∑∞n=0 1/n!:
 
-```c
-float fact_div_T(int n){
-    if (n==0){return 1.0;}
-    else return (1.0/n)*fact_div_T(n-1);
-}
-
-float fact_div(int n){
-    if(n==0){return fact_div_T(n);}
-    else {return fact_div_T(n)+fact_div(n-1);}
-}
-```
+meilleure précision avec double 
+et la fonction récursive terminale prends moins de temps à s'exécuter.
 
 ### Puissance 
 
@@ -25,9 +16,9 @@ e ∗(1 −(1/2) ∗x + (11/24) ∗x2 −(7/16) ∗x3 + (2447/5760) ∗x4 −(95
 
 |                                       | itératif | récursif | récursif terminale | récursif 2^p=2(n*2) |
 | ------------------------------------- | :------- | -------- | ------------------ | ------------------- |
-| mémoire                               |          |          |                    |                     |
-| précision du résultat (double/ float) |          |          |                    |                     |
-| temps de calcul                       |          |          |                    |                     |
+| mémoire                               |       +   |     +++     |         +           |           ++          |
+| précision du résultat (double/ float) |     non     |     non     |          oui          |        oui             |
+| temps de calcul                       |     ++     |     +++     |           ++         |          +           |
 
 
 
@@ -83,7 +74,9 @@ pow(x,n)
 
 ### Ackermann 
 
-les premières valeurs de  A(m,0)
+les premières valeurs de  A(m,0): 1, 2, 3, 5, 13, 65533
+la version 1 prends moins de mémoire on peut aller jusqu'à m=5,
+la version 2 est néanmoins plus rapide dans le cas où n varie.
 
 ##### itératif
 
@@ -110,6 +103,8 @@ int Ackrec(int n, int m){
 
 
 ### Suite
+
+x(100) impossible de la calculer avec des float, il faut des double
 
 ##### itératif 
 
@@ -191,10 +186,11 @@ float suiteXrec(int n){
 
 ## A faire:
 
--implémenter la partie 1
--tester la partie 1
+-implémenter la partie 1 ✔️
+-tester la partie 1 ✔️
 
 -implémenter la partie 2
 -finir la partie 2
+-tester la partie 2
 
 -commencer la partie 3
