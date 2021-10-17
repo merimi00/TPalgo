@@ -50,7 +50,8 @@ récursif
 
 
 ## 2. Listes-Piles et Files
-ZeroEnDeuxiemePosition; QueDesZeros; Compte0Initiaux; IntersectionTriee; ElimineKpremiersX; ElimineKderniersX; Permutations; Listes circulaires
+algo sur papier: ZeroEnDeuxiemePosition; QueDesZeros; Compte0Initiaux; IntersectionTriee; 
+pas encore fait: ElimineKpremiersX; ElimineKderniersX; Permutations; Listes circulaires
 
 ## 3. Arbres: Quadtrees
 
@@ -63,7 +64,7 @@ ZeroEnDeuxiemePosition; QueDesZeros; Compte0Initiaux; IntersectionTriee; Elimine
 -implémenter la partie 1 ✔️
 -tester la partie 1 ✔️
 
--implémenter la partie 2
+-implémenter la partie 2 ✔️
 -finir la partie 2
 -tester la partie 2
 
