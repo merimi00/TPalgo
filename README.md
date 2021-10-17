@@ -50,22 +50,7 @@ récursif
 
 
 ## 2. Listes-Piles et Files
-
-### ZeroEnDeuxiemePosition
-
-### QueDesZeros
-
-### Compte0Initiaux
-
-### IntersectionTriee
-
-### ElimineKpremiersX
-
-### ElimineKderniersX
-
-### Permutations
-
-### Listes circulaires
+ZeroEnDeuxiemePosition; QueDesZeros; Compte0Initiaux; IntersectionTriee; ElimineKpremiersX; ElimineKderniersX; Permutations; Listes circulaires
 
 ## 3. Arbres: Quadtrees
 
