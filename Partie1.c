@@ -10,11 +10,13 @@ float fact_div_aux(int n){
 }
 
 float fact_div(int n){
-    if(n==0){return fact_div_aux(n);}
-    else {return fact_div_aux(n)+fact_div(n-1);}
+    float tmp = fact_div_aux(n);
+    if(n==0){return tmp;}
+    else {return tmp+fact_div(n-1);}
 }
 
-/**< amélioration: de la précision avec double et du temps d'éxécution avec la fonction récursive terminale */
+/**< amélioration: de la précision avec double et
+du temps d'éxécution avec la fonction récursive terminale */
 
 double fact_div_auxT(int n, double acc){
     if (n==0){return acc;}
@@ -35,7 +37,7 @@ float puissanceI(int n, float x){
     if (n > 0)
         for(int i = 0; i<n; i++) a = a*x;
 
-    else if (n < 0)
+    else
         for(int i = n; i<0; i++) a = a*(1.0/x);
 
     return a;
@@ -59,12 +61,14 @@ float puissanceR(int n, float x){
 double puissanceR2(int n, double x){
     if(n == 0) return 1;
     else if (n > 0){
-        if (n%2 == 0) return puissanceR2(n/2,x)*puissanceR2(n/2,x);
-        else return puissanceR2(n/2,x)*puissanceR2(n/2,x)*x;
+        double tmp = puissanceR2(n/2,x);
+        if (n%2 == 0) return tmp*tmp;
+        else return tmp*tmp*x;
     }
     else{
-        if (n%2 == 0) return puissanceR2(n/2,x)*puissanceR2(n/2,x);
-        else return puissanceR2(n/2,x)*puissanceR2(n/2,x)*(1.0/x);
+        double tmp = puissanceR2(n/2,x);
+        if (n%2 == 0) return tmp*tmp;
+        else return tmp*tmp*(1.0/x);
     }
 }
 
@@ -109,8 +113,9 @@ int Ackrec(int m, int n){
 //itérative
 double suiteX(int n){
     double res = 1;
-    if (n == 0) res = 1;
-    else for(int i = 0; i<n; i++) res = res + (1.0/res);
+    if (n != 0)
+        for(int i = 0; i<n; i++)
+            res = res + (1.0/res);
     return res;
 }
 
@@ -122,22 +127,51 @@ double suiteXrec(int n){
     else return suiteXrec(n-1)+(1.0/suiteXrec(n-1));
 }
 
+
+double suiteXrec1(int n){
+    double a = 0;
+    double b ;
+    if(n == 0){
+        a += 1;
+
+    }else{
+        b = suiteXrec(n-1);
+        a += b + (1.0/b);
+    }
+    return a;
+}
+/**
+double suiteXrecTer(int n){
+
+    double res = 1;
+    return suiteXrecTer_aux(n, res);
+
+}
+
+double suiteXrecTer_aux(int n, double res){
+    if(n == 0){
+        return res;
+    }else{
+        return suiteXrecTer_aux(n-1, res + (1.0/res) );
+    }
+}
+**/
+/*
 int main()
 {
-    /***question 1: e = ∑∞n=0 1/n!***/
-/*
-    printf("fact_div de 7: %f\n" , fact_div(7));//2.718254
-    printf("fact_div de 5: %f\n" , fact_div(5));//2.716667
-    printf("fact_div de 2: %f\n" , fact_div(2));//2.500000
-    printf("fact_div de 1: %f\n" , fact_div(1));//2.000000
-    printf("fact_div de 0: %f\n" , fact_div(0));//1.000000
+
+    //question 1: e = ∑∞n=0 1/n!
+
+    for(int i = 0;i<10;i++){
+        printf("fact_div de %d: %f\n" , i, fact_div(i));
+    }
 
     int test = 30000;
     printf("fact_divT de %d: %f\n" , test, fact_divT(test));
     printf("fact_div de %d: %f\n" , test, fact_div(test));
-*/
-    /***question 2***/ //calculer (1 + 10^-k )^(10^k)/
-/*  printf("puissanceI(-3,5.0): %f\n" , puissanceI(-3,5.0));
+
+    //question 2 calculer (1 + 10^-k )^(10^k)/
+    printf("puissanceI(-3,5.0): %f\n" , puissanceI(-3,5.0));
     printf(" puissanceR(-3,5.0): %f\n" , puissanceR(-3,5.0));
     printf(" puissanceR2(-5,5.0): %f\n" , puissanceR2(-3,5.0));
     printf(" puissanceRT(-3,5.0): %f\n" , puissanceRT(-3,5.0));
@@ -155,31 +189,31 @@ int main()
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("time: %f\n", time_spent);
-*/
-    /***question 3***/ //Ackermann
-/*
-    printf("Ack(0,0): %d\n; Ack(1,0): %d\n; Ack(2,0): %d\n; Ack(3,0): %d\n; Ack(4,0): %d\n; Ack(5,0): %d\n" ,
-            Ack(0,0), Ack(1,0),Ack(2,0),Ack(3,0),Ack(4,0), Ack(5,0));//6 secondes
 
-    printf("Ackrec(0,0): %d\n; Ackrec(1,0): %d\n; Ackrec(2,0): %d\n; Ackrec(3,0): %d\n; Ackrec(4,0): %d\n" ,
-           Ackrec(0,0), Ackrec(1,0),Ackrec(2,0),Ackrec(3,0),Ackrec(4,0)); //6 secondes mais sans m=5
+    //question 3 Ackermann
+
+    for(int i = 0; i<5; i++){
+        printf("Ack(%d,0): %d\n" , i, Ack(i,0));//6 secondes
+        printf("Ackrec(0,0): %d\n" ,i, Ackrec(i,0)); //6 secondes mais sans m=5
+    }
 
     printf("Ack(2,3): %d; Ackrec(2,3): %d\n" , Ack(2,3), Ackrec(2,3));
     printf("Ack(3,4): %d; Ackrec(3,4): %d\n" , Ack(3,4), Ackrec(3,4));
-*/
 
-    /***question 4***/
-/*
-     printf("suiteXrec(0): %f\n" , suiteXrec(0));
-     printf("suiteXrec(1): %f\n" , suiteXrec(1));
-     printf("suiteXrec(2): %f\n" , suiteXrec(2));
-     printf("suiteXrec(3): %f\n" , suiteXrec(3));
-     printf("suiteXrec(5): %f\n" , suiteXrec(5));
-     printf("suiteXrec(10): %f\n" , suiteXrec(10));
-     printf("suiteXrec(50): %f\n" , suiteX(50));
-     printf("suiteXrec(100): %f\n" , suiteX(100));
 
-*/
+    //question 4
+
+    for(int i = 40;i<50;i++){
+        //printf("suiteXrec(%d): %f\n" , i, suiteXrec(i));
+        printf("suiteX(%d): %f\n" , i, suiteX(i));
+        //printf("suiteXrec1(%d): %f\n" , i, suiteXrec1(i));
+    }
+
+     printf("suiteX(100): %f\n" , suiteX(100));
+     printf("suiteXrecTer(100): %f\n" , suiteXrecTer(100));
+
 
     return 0;
 }
+
+*/
