@@ -476,8 +476,20 @@ void ElimineKpremiersX(Liste l, int k, int x){
 
 }
 
-Liste ElimineKderniersX(Liste l, int k, int x){
-    return l;
+void ElimineKderniersX_aux(Liste l, int k, int x, bool b){
+    if (l == []){
+        return;
+    }else{
+        ElimineKderniersX_aux( suite(l), k-1, x, b);
+        if(!b && premier(l)==x && k>0){
+            depile(l);
+        }
+
+    }
+}
+
+void ElimineKderniersX(Liste l, int k, int x){
+    ElimineKderniersX_aux(l, k, x, false);
 }
 
 
