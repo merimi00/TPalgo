@@ -230,73 +230,148 @@ void VideListe(Liste *L)
 /*       Fonction à implémenter                  */
 /*                                               */
 /*************************************************/
+
+/*************************************************/
+/*       ZeroEnDeuxiemePosition                  */
+/*************************************************/
 bool ZeroEnDeuxiemePosition(Liste l){
     //vrai sur [2,0,3,6,0] et faux sur [0,2,0,6,0]
-    if(!estVide(l) && !estVide(suite(l))) return (0 == premier(suite(l)));
-    return false;
+    if(!estVide(l) && !estVide(suite(l))){
+
+       return (0 == premier(suite(l)));
+
+    }else{
+
+        return false;
+    }
 }
 
+/*************************************************/
+/*                  QueDesZeros                  */
+/*************************************************/
 bool QueDesZeros(Liste l){
-    if (estVide(l)) return true;
-    else if(premier(l) != 0) return false;
-    else return QueDesZeros(suite(l));
-    return true;/*essaie d'enlever cette ligne pour voir si
-    des que suite de l sera vide ca va faire true ou cette
-    ligne est indispensable*/
+
+    if (estVide(l)){
+
+        return true;
+
+    }else if(premier(l) != 0){
+
+        return false;
+
+    }else{
+
+         return QueDesZeros(suite(l));
+    }
+
 }
+
+
+/*************************************************/
+/*            Compte0Initiaux 4 versions         */
+/*************************************************/
+
 /**récursive sans sous-fonctionnalité et non-terminale **/
-/**itérative **/
-/**avec sous fonction recursive terminale avec arg supplementaire in **/
-/**avec sous procédure récursive terminale avec argument supplémentaire inout **/
-int cpt = 0;//variable global attention stp -_-''
 int Compte0InitiauxV1(Liste l){
-    if (estVide(l)) return cpt;
-    else if(premier(l) != 0) return cpt;
-    else {
-        Compte0InitiauxV1(suite(l));
-        cpt++;
+
+    if ((estVide(l))){
+
+        return 0;
+
+    }else if(premier(l) != 0){
+
+        return Compte0InitiauxV1(suite(l));
+
+    }else{
+
+        return (1 + Compte0InitiauxV1(suite(l)));
+
     }
-    return cpt;
 }
 
+/**itérative**/
 int Compte0InitiauxV2(Liste l){
-    //not sure
-    if (estVide(l)) return 0;
-    else {
-        int i;
+
+    int i = 0;
+    if ((estVide(l)) || (premier(l) != 0)) {
+            return 0;
+    }else{
+
         int premierDEsuite = premier(l);
-        for(i = 0;premierDEsuite != 0;i++){
+
+        while(premierDEsuite == 0){
+
             premierDEsuite = premier(suite(l));
+            i ++;
         }
-        return i;
     }
+    return i;
 }
 
-void Compte0InitiauxV3_aux(Liste l, int *res){
-    if (estVide(l)) *res = 0;
-    else //(premier(l) == 0)
-        Compte0InitiauxV3_aux(suite(l), *res++);
+/**avec sous fonction recursive terminale avec arg supplementaire in
+void Compte0InitiauxV3_aux(Liste l, int* res){
+
+    *res = 0;
+
+    if (estVide(l)){
+
+        return;
+
+    }else if(premier(l) == 0){
+
+        *res +=1;
+
+        Compte0InitiauxV3_aux(suite(l), res );
+
+    }else{
+
+        *res = 0;
+        return;
+    }
 }
 int Compte0InitiauxV3(Liste l){
-    int res;
-    Compte0InitiauxV3_aux(l, &res);
-    return res;
-}
 
+    int* cpt;
+    cpt = (int*) malloc (sizeof(int));
+
+    Compte0InitiauxV3_aux(l, cpt);
+
+    printf(" p %d ", cpt); printf(" *&p %d ", &cpt);
+    printf(" *p %d ", *cpt); printf(" &*p %d ", &(*cpt));
+
+    return (*cpt);
+}
+**/
+
+/**avec sous procédure récursive terminale avec argument supplémentaire inout**/
 int Compte0InitiauxV4_aux(Liste l, int res){
-    if (estVide(l)) res = 0;
-    else if(premier(l) != 0) return res;
-    else Compte0InitiauxV4_aux(suite(l), res++);
+
+    if (estVide(l) || (premier(l) != 0) ){
+
+        return res;
+
+    }else{
+
+        return Compte0InitiauxV4_aux(suite(l), res+1);
+    }
+
     return res;
 }
 int Compte0InitiauxV4(Liste l){
-    int res;
+
+    int res = 0;
+
     return Compte0InitiauxV4_aux(l, res);
 }
-/**tentative 1 renverser la liste avec sous-fonction*/
-/*Liste IntersectionTriee(Liste l1, Liste l2){
-    if (estVide(l1)) return l2
-    else if (estVide(l2)) return l1
+
+/*************************************************/
+/*            IntersectionTriee                  */
+/*************************************************/
+
+/**tentative 1 renverser la liste avec sous-fonction
+Liste IntersectionTriee(Liste l1, Liste l2){
+    if (estVide(l1)) return l2;
+    else if (estVide(l2)) return l1;
     else {
         Liste ll1 = separerLesListes(l1);
         Liste ll2 = separerLesListes(l2);
@@ -308,21 +383,112 @@ int Compte0InitiauxV4(Liste l){
 }
 Liste separerLesListes(Liste l){
     Liste p = l;
-    initVide(res);
+    //initVide(res);
     int j = 0;
     for(int i=0; estVide(l); i++){
         if(premier(p) == j){
 
         }
     }
-}*/
+    return l;
+}
+**/
+/**tentative2 avec renverser la liste itérative
+Liste reverse(Liste l);//imaginons qu'on l'ai implémenter
+Liste IntersectionTriee1(Liste l1, Liste l2){
+    Liste p = l1;
+    Liste q = l2;
+    Liste l3;
+    initVide(&l3);
+    while(!estVide(p) && !estVide(q)){
+        if(premier(p)<premier(q)){
+            p = suite(p);
+        }
+        else if(premier(p)>premier(q)){
+            q = suite(q);
+        }
+        else {
+            ajoute(premier(p),l3);
+            p = suite(p);
+            q = suite(q);
+        }
+    }
+    return reverse(l3);
+}
+*/
+/**tentative 3 sans renverser la liste itérative
+Liste IntersectionTriee2(Liste l1, Liste l2){
+    Liste p = l1;
+    Liste q = l2;
+    Liste l3;
+    initVide(&l3);
+    Liste r = l3;
+    while(!estVide(p) && !estVide(q)){
+        if(premier(p)<premier(q)){
+            p = suite(p);
+        }
+        else if(premier(p)>premier(q)){
+            q = suite(q);
+        }
+        else{
+            if(!estVide(r)){
+                Liste* head = (Liste) malloc (sizeof(Bloc));
+                premier(head) = premier(p);
+                l3 = head;
+                r = head;
+                p = suite(p);
+                q = suite(q);
+            }
+            else{
+                Liste* tmp = (Liste) malloc (sizeof(Bloc));
+                premier(tmp) = premier(p);
+                suite(r) = tmp;
+                r = tmp;
+                p = suite(p);
+                q = suite(q);
+            }
+        }
+    }
+    return l3;
+}
+**/
 
-/**tentative2 avec renverser la liste itérative*/
-
-/**tentative 3 sans renverser la liste itérative*/
+/**tentative 4 récursive*/
 
 
 
+
+//utiliser la question du td 2 la fonction pif
+/** eliminer <un seul parcours de la liste> permuter**/
+
+void ElimineKpremiersX(Liste l, int k, int x){
+
+    if( k<=0 || estVide(l)){
+            return;
+
+    }else if((premier(l) == x) && (k > 0)){
+        depile(l);
+        ElimineKpremiersX(suite(l), k-1, x);
+
+    }else{
+       ElimineKpremiersX(suite(l), k-1, x);
+    }
+
+}
+
+Liste ElimineKderniersX(Liste l, int k, int x){
+    return l;
+}
+
+
+/**
+Liste Liste Permutations(Liste l, int k, int x){
+
+}
+//liste circulaire
+ajoute(in int x, inout file F)
+sortir(out int x, inout file F)
+**/
 
 /*************************************************/
 /*                                               */
@@ -341,38 +507,57 @@ void poup (Liste l)
                            longueur_iter(l)
                ) ;
 }
-/*
+
+char bool_to_char(bool b){
+    if (b){ return 't';}
+    else{ return 'f';}
+}
+
 int main(int argc, char** argv)
 {
     Liste l ;
+    initVide (&l) ;
+    //poup(l) ;
 
-        initVide (&l) ;
+    empile(4, &l) ;
+    //poup(l) ;
 
-          poup(l) ;
+    empile(5, &l) ; empile(6, &l) ; empile(7, &l) ; empile(8, &l) ; empile(9, &l) ;
+    //poup(l) ;
 
-             empile(4, &l) ;
+    VireDernier_rec  (&l) ; VireDernier_iter (&l) ;
+    depile(& l) ;
+    poup(l) ;
 
-          poup(l) ;
+    printf("ZeroEnDeuxiemePosition %c\n", bool_to_char(ZeroEnDeuxiemePosition(l)));
+    printf("QueDesZeros %c\n", bool_to_char(QueDesZeros(l)));
+    printf("Compte0Initiaux %d\n", Compte0InitiauxV4(l));
 
-             empile(5, &l) ;
-             empile(6, &l) ;
-             empile(7, &l) ;
-             empile(8, &l) ;
-             empile(9, &l) ;
-
-          poup(l) ;
-
-        VireDernier_rec  (&l) ;
-        VireDernier_iter (&l) ;
-        depile(& l) ;
-
-          poup(l) ;
+    empile(0, &l) ;
+    printf("Compte0Initiaux %d\n", Compte0InitiauxV4(l));
 
     VideListe(&l);
+
+
+
+/**
+    Liste ll ;
+
+    initVide (&ll) ;
+
+    empile(0, &ll) ;
+    empile(0, &ll) ;
+    empile(0, &ll) ;
+    empile(0, &ll) ;
+    empile(0, &ll) ;
+
+    poup(ll) ;
+
+    printf("ZeroEnDeuxiemePosition %c\n", bool_to_char(ZeroEnDeuxiemePosition(ll)));
+    printf("QueDesZeros %c\n", bool_to_char(QueDesZeros(ll)));
+    //printf("Compte0Initiaux %d\n", Compte0InitiauxV1(ll));                                                                                                                                                                                                               ));
+
+    VideListe(&ll);
+**/
     return 0;
 }
-*/
-
-
-
-
