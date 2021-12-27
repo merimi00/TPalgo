@@ -35,6 +35,7 @@ image construit_composee(image ihg,image ihd,image ibg,image ibd){
     return i;
 }
 
+//just 4 fun
 void free_image(image i){
     if(i!=NULL){
         if(i->toutnoir){
@@ -90,6 +91,7 @@ void bis_print_profondeur(image i, int p){
     }
 }
 
+
 bool estBlanche(image i){
     if(i==NULL){
         return true;
@@ -117,14 +119,19 @@ bool estNoire(image i){
     }
 }
 
-image copie(image i){
-
-}
 
 
 
 int main() {
+    /*
+    image b = construit_blanc();
+    image n = construit_noir();
 
-
+    print_normal(n);
+    printf("\n");
+    print_profondeur(n);
+    printf(estNoire(n) ? "true" : "false");
+    printf(estBlanche(b) ? "true" : "false");
+    */
     return 0;
 }
