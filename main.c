@@ -12,6 +12,7 @@ typedef bloc_image *image ;
 
 
 void bis_print_profondeur(image i, int p);
+double bis_aire(image i, int t);
 
 image construit_blanc(){
     return NULL;
@@ -35,22 +36,6 @@ image construit_composee(image ihg,image ihd,image ibg,image ibd){
     return i;
 }
 
-//just 4 fun
-void free_image(image i){
-    if(i!=NULL){
-        if(i->toutnoir){
-            free(i);
-        }
-        else{
-            free_image(i->fils[0]);
-            free_image(i->fils[1]);
-            free_image(i->fils[2]);
-            free_image(i->fils[3]);
-            free(i);
-        }
-    }
-}
-
 void print_normal(image i){
     if (i == NULL) {
         printf("B");
@@ -70,7 +55,7 @@ void print_normal(image i){
 }
 
 
-void print_profondeur(image i){
+void printprofondeur(image i){
     bis_print_profondeur(i,0);
 }
 void bis_print_profondeur(image i, int p){
@@ -119,7 +104,50 @@ bool estNoire(image i){
     }
 }
 
+image copie(image i){
+    if(i==NULL){
+        return construit_blanc();
+    } else{
+        if(i->toutnoir){
+            return construit_noir();
+        }
+        else{
+            return construit_composee(copie(i->fils[0]), copie(i->fils[1]), copie(i->fils[2]), copie(i->fils[3]));
+        }
+    }
+}
 
+double aire(image i){
+    return bis_aire(i,1);
+}
+double bis_aire(image i, int t){
+    if(i==NULL){
+        return 0;
+    }
+    else{
+        if(i->toutnoir){
+            return t;
+        }
+        else{
+            return bis_aire(i->fils[0],(t/4)) + bis_aire(i->fils[1],(t/4)) + bis_aire(i->fils[2],(t/4)) + bis_aire(i->fils[3],(t/4));
+        }
+    }
+}
+
+void rendMemoire(image i){
+    if(i!=NULL){
+        if(i->toutnoir){
+            free(i);
+        }
+        else{
+            rendMemoire(i->fils[0]);
+            rendMemoire(i->fils[1]);
+            rendMemoire(i->fils[2]);
+            rendMemoire(i->fils[3]);
+            free(i);
+        }
+    }
+}
 
 
 int main() {
